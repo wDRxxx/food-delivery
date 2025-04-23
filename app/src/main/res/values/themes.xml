@@ -1,9 +1,14 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.FoodDelivery" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="Theme.FoodDelivery" parent="Base.Theme.FoodDelivery" />
+
+    <style name="Theme.NoSplashIcon" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>
