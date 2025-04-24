@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.fooddelivery.R
@@ -21,6 +23,7 @@ class OnboardingFragment : Fragment() {
             OnboardingScreen1(),
             OnboardingScreen2(),
             OnboardingScreen3(),
+            OnboardingScreen4(),
         )
 
         val adapter = Adapter(
@@ -32,6 +35,19 @@ class OnboardingFragment : Fragment() {
 
         val indicator = view.findViewById<WormDotsIndicator>(R.id.dots_indicator)
         indicator.attachTo(viewPager)
+
+        val nextBtn = view.findViewById<Button>(R.id.nextBtn)
+        val skipBtn = view.findViewById<TextView>(R.id.skipBtn)
+
+        nextBtn.setOnClickListener {
+            if (viewPager.currentItem < 3) {
+                viewPager.currentItem++
+            }
+
+            if (viewPager.currentItem == 3) {
+                nextBtn.text = "GET STARTED"
+            }
+        }
 
         return view
     }

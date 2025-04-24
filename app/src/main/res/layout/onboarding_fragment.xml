@@ -6,6 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <FrameLayout
@@ -18,21 +19,41 @@
                 android:layout_height="wrap_content" />
         </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+            android:layout_marginTop="50dp"
+            android:id="@+id/dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dotsColor="#FF7622"
+            app:dotsStrokeColor="#FF7622"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="16dp"
+            app:dotsSpacing="4dp"
+            app:dotsStrokeWidth="2dp" />
 
-            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-                android:id="@+id/dots_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:dotsColor="#FF0000"
-                app:dotsStrokeColor="#00FF00"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="16dp"
-                app:dotsSpacing="4dp"
-                app:dotsStrokeWidth="2dp" />
-        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:paddingHorizontal="30dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="NEXT" />
+
+        <TextView
+            android:id="@+id/skipBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Skip" />
     </LinearLayout>
 
 

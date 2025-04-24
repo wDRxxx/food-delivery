@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, OnboardingFragment())
