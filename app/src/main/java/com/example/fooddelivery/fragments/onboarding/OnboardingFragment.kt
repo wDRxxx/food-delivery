@@ -11,7 +11,7 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.fooddelivery.R
-import com.example.fooddelivery.fragments.HomeFragment
+import com.example.fooddelivery.fragments.LoginFragment
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 
 class OnboardingFragment : Fragment() {
@@ -61,7 +61,7 @@ class OnboardingFragment : Fragment() {
                 }
 
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, HomeFragment())
+                    .replace(R.id.fragment_container, LoginFragment())
                     .commit()
             }
         }
