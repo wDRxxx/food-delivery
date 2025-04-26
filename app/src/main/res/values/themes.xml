@@ -4,11 +4,24 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:windowIsTranslucent">true</item>
+
+        <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorPrimaryVariant">@color/accent</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:textColorPrimary">@color/primary_text</item>
+
+        <item name="android:textColorSecondary">@color/secondary_text</item>
     </style>
 
     <style name="Theme.FoodDelivery" parent="Base.Theme.FoodDelivery" />
 
-    <style name="Theme.NoSplashIcon" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.NoSplashIcon" parent="Base.Theme.FoodDelivery">
         <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>

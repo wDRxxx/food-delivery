@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.fooddelivery.fragments.HomeFragment
 import com.example.fooddelivery.fragments.onboarding.OnboardingFragment
 
 
@@ -19,10 +20,18 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
+        val onboardingCompleted = prefs.getBoolean("onboarding", false)
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, OnboardingFragment())
-                .commit()
+            if (!onboardingCompleted) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, OnboardingFragment())
+                    .commit()
+            } else {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, HomeFragment())
+                    .commit()
+            }
         }
     }
 }

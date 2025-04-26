@@ -1,14 +1,17 @@
 package com.example.fooddelivery.fragments.onboarding
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.fooddelivery.R
+import com.example.fooddelivery.fragments.HomeFragment
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 
 class OnboardingFragment : Fragment() {
@@ -39,6 +42,9 @@ class OnboardingFragment : Fragment() {
         val nextBtn = view.findViewById<Button>(R.id.nextBtn)
         val skipBtn = view.findViewById<TextView>(R.id.skipBtn)
 
+        val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+
+
         nextBtn.setOnClickListener {
             if (viewPager.currentItem < 3) {
                 viewPager.currentItem++
@@ -46,7 +52,25 @@ class OnboardingFragment : Fragment() {
 
             if (viewPager.currentItem == 3) {
                 nextBtn.text = "GET STARTED"
+                skipBtn.visibility = View.INVISIBLE
             }
+
+            if (nextBtn.text == "GET STARTED") {
+                prefs.edit() {
+                    putBoolean("onboarding", true)
+                }
+
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, HomeFragment())
+                    .commit()
+            }
+        }
+
+        skipBtn.setOnClickListener {
+            nextBtn.text = "GET STARTED"
+            skipBtn.visibility = View.INVISIBLE
+
+            viewPager.currentItem = 3
         }
 
         return view
