@@ -1,6 +1,8 @@
 package com.example.fooddelivery
 
+import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,6 +11,13 @@ import com.example.fooddelivery.fragments.HomeFragment
 import com.example.fooddelivery.fragments.LoginFragment
 import com.example.fooddelivery.fragments.onboarding.OnboardingFragment
 
+fun Context.dpToPx(dp: Float): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp,
+        resources.displayMetrics
+    ).toInt()
+}
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
         val onboardingCompleted = prefs.getBoolean("onboarding", false)
-        val loggedIn = prefs.getBoolean("loggedIn_FIXME", false)
+        val loggedIn = prefs.getBoolean("loggedIn", false)
 
         if (savedInstanceState == null) {
             if (!onboardingCompleted) {
