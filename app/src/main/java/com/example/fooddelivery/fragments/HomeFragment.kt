@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.fooddelivery.R
 import com.example.fooddelivery.dpToPx
 import com.example.fooddelivery.items.CategoryItem
-import com.example.fooddelivery.items.RestaurantItem
+import com.example.fooddelivery.items.RestaurantHomeItem
 import com.example.fooddelivery.models.Category
 import com.example.fooddelivery.models.Restaurant
 
@@ -19,20 +20,26 @@ class HomeFragment : Fragment() {
     lateinit var categoriesContainer: LinearLayout
     lateinit var restaurantsContainer: LinearLayout
 
+    lateinit var searchBtn: Button
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-//        parentFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container, DetailsFragment())
-//            .addToBackStack(null)
-//            .commit()
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         categoriesContainer = view.findViewById(R.id.categoriesContainer)
         restaurantsContainer = view.findViewById(R.id.restaurantsContainer)
+        searchBtn = view.findViewById(R.id.search)
+
+        searchBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, SearchFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
         loadCategories()
         loadRestaurants()
@@ -82,7 +89,7 @@ class HomeFragment : Fragment() {
         restaurantsContainer.removeAllViews()
 
         for (restaurant in restaurants) {
-            val restaurantItem = RestaurantItem(requireActivity())
+            val restaurantItem = RestaurantHomeItem(requireActivity())
             restaurantItem.bind(restaurant)
 
             val params = LinearLayout.LayoutParams(
