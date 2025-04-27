@@ -105,12 +105,13 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="All Categories" />
 
             <TextView
-                android:layout_marginLeft="215dp"
+                android:layout_marginLeft="190dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="See All >" />
@@ -138,23 +139,30 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Open Restaurants" />
 
             <TextView
-                android:layout_marginLeft="190dp"
+                android:layout_marginLeft="155dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="See All >" />
         </LinearLayout>
 
         <!--    Рестораны     -->
-        <LinearLayout
+        <ScrollView
             android:layout_marginTop="20dp"
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/restaurantsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
     </LinearLayout>
 </FrameLayout>
