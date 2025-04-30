@@ -19,8 +19,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fooddelivery.R
 import com.example.fooddelivery.SearchHistoryAdapter
 import com.example.fooddelivery.dpToPx
+import com.example.fooddelivery.items.PopularFastFoodSearchItem
 import com.example.fooddelivery.items.RestaurantSearchItem
 import com.example.fooddelivery.models.Category
+import com.example.fooddelivery.models.FastFood
 import com.example.fooddelivery.models.Restaurant
 
 class SearchFragment : Fragment() {
@@ -35,6 +37,7 @@ class SearchFragment : Fragment() {
     private var searchRunnable: Runnable? = null
 
     private lateinit var restaurantsContainer: LinearLayout
+    private lateinit var fastFoodContainer: LinearLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +48,10 @@ class SearchFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_search, container, false)
 
         restaurantsContainer = view.findViewById(R.id.restaurantsContainer)
+        fastFoodContainer = view.findViewById(R.id.fastFoodContainer)
 
         loadRestaurants()
+        loadFastFood()
 
         backBtn = view.findViewById(R.id.backBtn)
         backBtn.setOnClickListener {
@@ -183,7 +188,83 @@ class SearchFragment : Fragment() {
                 rating = 5f,
                 delivery = "1$",
                 deliveryTime = "10 min"
-            )
+            ),
+            Restaurant(
+                title = "American Spicy Burger Shop",
+                categories = listOf(
+                    Category(
+                        title = "Pizza",
+                    ),
+                    Category(
+                        title = "Hot Dog",
+                    ),
+                ),
+                rating = 4.3f,
+                delivery = "free",
+                deliveryTime = "20 min"
+            ),
+            Restaurant(
+                title = "Cafenio Coffee Club",
+                categories = listOf(
+                    Category(
+                        title = "Burger",
+                    ),
+                    Category(
+                        title = "Pizza",
+                    ),
+                    Category(
+                        title = "Hot Dog",
+                    ),
+                ),
+                rating = 4f,
+                delivery = "1$",
+                deliveryTime = "10 min"
+            ),
+            Restaurant(
+                title = "Rose Garden Restaurant",
+                categories = listOf(
+                    Category(
+                        title = "Pizza",
+                    ),
+                    Category(
+                        title = "Hot Dog",
+                    ),
+                ),
+                rating = 3.8f,
+                delivery = "free",
+                deliveryTime = "20 min"
+            ),
+            Restaurant(
+                title = "Cafenio Coffee Club",
+                categories = listOf(
+                    Category(
+                        title = "Burger",
+                    ),
+                    Category(
+                        title = "Pizza",
+                    ),
+                    Category(
+                        title = "Hot Dog",
+                    ),
+                ),
+                rating = 4f,
+                delivery = "1$",
+                deliveryTime = "10 min"
+            ),
+            Restaurant(
+                title = "Rose Garden Restaurant",
+                categories = listOf(
+                    Category(
+                        title = "Pizza",
+                    ),
+                    Category(
+                        title = "Hot Dog",
+                    ),
+                ),
+                rating = 3.8f,
+                delivery = "free",
+                deliveryTime = "20 min"
+            ),
         )
 
         addRestaurantsToView(restaurants)
@@ -209,6 +290,48 @@ class SearchFragment : Fragment() {
 
             restaurantItem.layoutParams = params
             restaurantsContainer.addView(restaurantItem)
+        }
+    }
+
+    private fun loadFastFood() {
+        val fastFood: List<FastFood> = listOf(
+            FastFood(
+                title = "European Pizza",
+                restaurant = "Uttora Coffe House"
+            ),
+            FastFood(
+                title = "Buffalo Pizza.",
+                restaurant = "Cafenio Coffee Club"
+            ),
+            FastFood(
+                title = "Buffalo Pizza.",
+                restaurant = "Cafenio Coffee Club"
+            ),
+        )
+
+        addFastFoodToView(fastFood)
+    }
+
+    private fun addFastFoodToView(fastFood: List<FastFood>) {
+        fastFoodContainer.removeAllViews()
+
+        for (food in fastFood) {
+            val fastFoodItem = PopularFastFoodSearchItem(requireActivity())
+            fastFoodItem.bind(food)
+
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            params.setMargins(
+                0, // Отступ слева
+                0,
+                requireActivity().dpToPx(20f), // Отступ справа
+                0,
+            )
+
+            fastFoodItem.layoutParams = params
+            fastFoodContainer.addView(fastFoodItem)
         }
     }
 }
