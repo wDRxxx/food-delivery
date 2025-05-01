@@ -18,21 +18,29 @@ class RestaurantHomeItem @JvmOverloads constructor(
     private var delivery: TextView
     private var deliveryTime: TextView
 
+    private var clickListener: (() -> Unit)? = null
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.item_restaurant_home, this, true)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_restaurant_home, this, true)
 
         title = findViewById(R.id.title)
         categories = findViewById(R.id.categories)
         rating = findViewById(R.id.rating)
         delivery = findViewById(R.id.delivery)
         deliveryTime = findViewById(R.id.deliveryTime)
+
+        view.setOnClickListener {
+            clickListener?.invoke()
+        }
     }
 
-    fun bind(restaurant: Restaurant) {
+    fun bind(restaurant: Restaurant, onClick: () -> Unit) {
         title.text = restaurant.title
         categories.text = restaurant.categories?.joinToString(separator = " - ") { it.title }
         rating.text = restaurant.rating.toString()
         delivery.text = restaurant.delivery
         deliveryTime.text = restaurant.deliveryTime
+
+        clickListener = onClick
     }
 }

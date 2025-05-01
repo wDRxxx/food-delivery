@@ -59,8 +59,18 @@ class HomeFragment : Fragment() {
         restaurantsContainer.removeAllViews()
 
         for (restaurant in restaurants) {
+            val fragment = RestaurantDetailsFragment()
+            fragment.arguments = Bundle().apply {
+                putSerializable("restaurant", restaurant)
+            }
+
             val restaurantItem = RestaurantHomeItem(requireActivity())
-            restaurantItem.bind(restaurant)
+            restaurantItem.bind(restaurant) {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
 
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,

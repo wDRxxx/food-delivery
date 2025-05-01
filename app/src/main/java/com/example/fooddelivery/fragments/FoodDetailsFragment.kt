@@ -1,7 +1,6 @@
 package com.example.fooddelivery.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +48,6 @@ class FoodDetailsFragment : Fragment() {
         countText = view.findViewById(R.id.count)
         minusBtn = view.findViewById(R.id.minusBtn)
         minusBtn.setOnClickListener {
-            Log.println(Log.INFO, "count minus", count.toString())
             if (count > 1) {
                 count--
                 countText.text = count.toString()
@@ -57,7 +55,6 @@ class FoodDetailsFragment : Fragment() {
         }
         plusBtn = view.findViewById(R.id.plusBtn)
         plusBtn.setOnClickListener {
-            Log.println(Log.INFO, "count plus", count.toString())
             count++
             countText.text = count.toString()
         }

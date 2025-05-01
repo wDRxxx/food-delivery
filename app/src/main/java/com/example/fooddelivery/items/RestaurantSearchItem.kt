@@ -15,15 +15,23 @@ class RestaurantSearchItem @JvmOverloads constructor(
     private var title: TextView
     private var rating: TextView
 
+    private var clickListener: (() -> Unit)? = null
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.item_restaurant_search, this, true)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_restaurant_search, this, true)
 
         title = findViewById(R.id.title)
         rating = findViewById(R.id.rating)
+
+        view.setOnClickListener {
+            clickListener?.invoke()
+        }
     }
 
-    fun bind(restaurant: Restaurant) {
+    fun bind(restaurant: Restaurant, onClick: () -> Unit) {
         title.text = restaurant.title
         rating.text = restaurant.rating.toString()
+
+        clickListener = onClick
     }
 }

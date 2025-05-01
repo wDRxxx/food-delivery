@@ -1,5 +1,7 @@
 package com.example.fooddelivery.models
 
+import java.io.Serializable
+
 data class Restaurant(
     val id: Int,
     val title: String,
@@ -8,13 +10,13 @@ data class Restaurant(
     val delivery: String?,
     val deliveryTime: String?,
     val description: String?
-)
+) : Serializable
 
 val restaurants: List<Restaurant> = listOf(
     Restaurant(
         id = 1,
         title = "Pizza house",
-        categories = categories.subList(0, 2),
+        categories = categories.subList(0, 3),
         rating = 4.7f,
         delivery = "free",
         deliveryTime = "20 min",

@@ -25,6 +25,7 @@
                 android:src="@drawable/icon_back" />
 
             <TextView
+                android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -52,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:background="@drawable/rounded_search_item">
+            android:background="@drawable/rounded_bordered">
 
             <ImageView
                 android:layout_marginRight="10dp"
@@ -174,7 +175,7 @@
         android:background="@drawable/rounded_top_corners_gray"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -190,10 +191,11 @@
                 android:textSize="30dp" />
 
             <LinearLayout
+                android:layout_gravity="right"
                 android:paddingHorizontal="15dp"
+                android:paddingVertical="6dp"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="150dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rounded_black"
                 android:gravity="center_vertical">
 
@@ -227,7 +229,7 @@
                     android:textSize="20dp" />
 
             </LinearLayout>
-        </LinearLayout>
+        </FrameLayout>
 
         <Button
             android:id="@+id/nextBtn"
