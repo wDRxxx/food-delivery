@@ -15,15 +15,23 @@ class PopularFastFoodSearchItem @JvmOverloads constructor(
     private var title: TextView
     private var restaurant: TextView
 
+    private var clickListener: (() -> Unit)? = null
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.item_fastfood_search, this, true)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_fastfood_search, this, true)
 
         title = findViewById(R.id.title)
         restaurant = findViewById(R.id.resturant)
+
+        view.setOnClickListener {
+            clickListener?.invoke()
+        }
     }
 
-    fun bind(fastFood: FastFood) {
+    fun bind(fastFood: FastFood, onClick: () -> Unit) {
         title.text = fastFood.title
-        restaurant.text = fastFood.restaurant
+        restaurant.text = fastFood.restaurant?.title
+
+        clickListener = onClick
     }
 }

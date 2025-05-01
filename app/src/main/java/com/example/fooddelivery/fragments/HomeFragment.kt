@@ -13,6 +13,8 @@ import com.example.fooddelivery.items.CategoryItem
 import com.example.fooddelivery.items.RestaurantHomeItem
 import com.example.fooddelivery.models.Category
 import com.example.fooddelivery.models.Restaurant
+import com.example.fooddelivery.models.categories
+import com.example.fooddelivery.models.restaurants
 
 
 class HomeFragment : Fragment() {
@@ -48,39 +50,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadRestaurants() {
-        val restaurants: List<Restaurant> = listOf(
-            Restaurant(
-                title = "Rose Garden Restaurant",
-                categories = listOf(
-                    Category(
-                        title = "Pizza",
-                    ),
-                    Category(
-                        title = "Hot Dog",
-                    ),
-                ),
-                rating = 4.7f,
-                delivery = "free",
-                deliveryTime = "20 min"
-            ),
-            Restaurant(
-                title = "Sigma Restaurant",
-                categories = listOf(
-                    Category(
-                        title = "Burger",
-                    ),
-                    Category(
-                        title = "Pizza",
-                    ),
-                    Category(
-                        title = "Hot Dog",
-                    ),
-                ),
-                rating = 5f,
-                delivery = "1$",
-                deliveryTime = "10 min"
-            )
-        )
+        val restaurants: List<Restaurant> = restaurants
 
         addRestaurantsToView(restaurants)
     }
@@ -111,15 +81,10 @@ class HomeFragment : Fragment() {
     private fun loadCategories() {
         val categories: List<Category> = listOf(
             Category(
+                id = 0,
                 title = "All",
             ),
-            Category(
-                title = "Pizza",
-            ),
-            Category(
-                title = "Hot Dog",
-            ),
-        )
+        ).plus(categories)
 
         addCategoriesToView(categories)
     }

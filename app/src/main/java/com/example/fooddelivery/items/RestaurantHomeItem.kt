@@ -30,7 +30,7 @@ class RestaurantHomeItem @JvmOverloads constructor(
 
     fun bind(restaurant: Restaurant) {
         title.text = restaurant.title
-        categories.text = restaurant.categories.joinToString(separator = " - ") { it.title }
+        categories.text = restaurant.categories?.joinToString(separator = " - ") { it.title }
         rating.text = restaurant.rating.toString()
         delivery.text = restaurant.delivery
         deliveryTime.text = restaurant.deliveryTime

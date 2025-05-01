@@ -3,6 +3,7 @@ package com.example.fooddelivery.fragments
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -21,9 +22,10 @@ import com.example.fooddelivery.SearchHistoryAdapter
 import com.example.fooddelivery.dpToPx
 import com.example.fooddelivery.items.PopularFastFoodSearchItem
 import com.example.fooddelivery.items.RestaurantSearchItem
-import com.example.fooddelivery.models.Category
 import com.example.fooddelivery.models.FastFood
 import com.example.fooddelivery.models.Restaurant
+import com.example.fooddelivery.models.fastfoods
+import com.example.fooddelivery.models.restaurants
 
 class SearchFragment : Fragment() {
 
@@ -33,7 +35,7 @@ class SearchFragment : Fragment() {
     private lateinit var historyRecyclerView: RecyclerView
     private var historyList = mutableListOf<String>()
     private lateinit var historyAdapter: SearchHistoryAdapter
-    private val handler = android.os.Handler()
+    private val handler = Handler()
     private var searchRunnable: Runnable? = null
 
     private lateinit var restaurantsContainer: LinearLayout
@@ -157,115 +159,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun loadRestaurants() {
-        val restaurants: List<Restaurant> = listOf(
-            Restaurant(
-                title = "Rose Garden Restaurant",
-                categories = listOf(
-                    Category(
-                        title = "Pizza",
-                    ),
-                    Category(
-                        title = "Hot Dog",
-                    ),
-                ),
-                rating = 4.7f,
-                delivery = "free",
-                deliveryTime = "20 min"
-            ),
-            Restaurant(
-                title = "Sigma Restaurant",
-                categories = listOf(
-                    Category(
-                        title = "Burger",
-                    ),
-                    Category(
-                        title = "Pizza",
-                    ),
-                    Category(
-                        title = "Hot Dog",
-                    ),
-                ),
-                rating = 5f,
-                delivery = "1$",
-                deliveryTime = "10 min"
-            ),
-            Restaurant(
-                title = "American Spicy Burger Shop",
-                categories = listOf(
-                    Category(
-                        title = "Pizza",
-                    ),
-                    Category(
-                        title = "Hot Dog",
-                    ),
-                ),
-                rating = 4.3f,
-                delivery = "free",
-                deliveryTime = "20 min"
-            ),
-            Restaurant(
-                title = "Cafenio Coffee Club",
-                categories = listOf(
-                    Category(
-                        title = "Burger",
-                    ),
-                    Category(
-                        title = "Pizza",
-                    ),
-                    Category(
-                        title = "Hot Dog",
-                    ),
-                ),
-                rating = 4f,
-                delivery = "1$",
-                deliveryTime = "10 min"
-            ),
-            Restaurant(
-                title = "Rose Garden Restaurant",
-                categories = listOf(
-                    Category(
-                        title = "Pizza",
-                    ),
-                    Category(
-                        title = "Hot Dog",
-                    ),
-                ),
-                rating = 3.8f,
-                delivery = "free",
-                deliveryTime = "20 min"
-            ),
-            Restaurant(
-                title = "Cafenio Coffee Club",
-                categories = listOf(
-                    Category(
-                        title = "Burger",
-                    ),
-                    Category(
-                        title = "Pizza",
-                    ),
-                    Category(
-                        title = "Hot Dog",
-                    ),
-                ),
-                rating = 4f,
-                delivery = "1$",
-                deliveryTime = "10 min"
-            ),
-            Restaurant(
-                title = "Rose Garden Restaurant",
-                categories = listOf(
-                    Category(
-                        title = "Pizza",
-                    ),
-                    Category(
-                        title = "Hot Dog",
-                    ),
-                ),
-                rating = 3.8f,
-                delivery = "free",
-                deliveryTime = "20 min"
-            ),
-        )
+        val restaurants: List<Restaurant> = restaurants.plus(restaurants)
 
         addRestaurantsToView(restaurants)
     }
@@ -294,20 +188,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun loadFastFood() {
-        val fastFood: List<FastFood> = listOf(
-            FastFood(
-                title = "European Pizza",
-                restaurant = "Uttora Coffe House"
-            ),
-            FastFood(
-                title = "Buffalo Pizza.",
-                restaurant = "Cafenio Coffee Club"
-            ),
-            FastFood(
-                title = "Buffalo Pizza.",
-                restaurant = "Cafenio Coffee Club"
-            ),
-        )
+        val fastFood: List<FastFood> = fastfoods
 
         addFastFoodToView(fastFood)
     }
@@ -316,8 +197,18 @@ class SearchFragment : Fragment() {
         fastFoodContainer.removeAllViews()
 
         for (food in fastFood) {
+            val fragment = FoodDetailsFragment()
+            fragment.arguments = Bundle().apply {
+                putSerializable("food", food)
+            }
+
             val fastFoodItem = PopularFastFoodSearchItem(requireActivity())
-            fastFoodItem.bind(food)
+            fastFoodItem.bind(food) {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
 
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
