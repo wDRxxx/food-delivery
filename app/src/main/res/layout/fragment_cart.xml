@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <FrameLayout
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/backBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_back"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:textSize="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cart"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/edit"
+                android:textSize="15dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EDIT ITEMS"
+                android:textColor="@color/accent" />
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="530dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/itemsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical" />
+
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="310dp"
+            android:background="@drawable/rounded_top_corners_white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="DELIVERY ADDRESS"
+                        android:textColor="@color/secondary_text" />
+
+                    <TextView
+                        android:id="@+id/editAddressBtn"
+                        android:layout_gravity="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="EDIT"
+                        android:textColor="@color/accent" />
+                </FrameLayout>
+
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/editTextAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/rounded_input"
+                    android:ems="10"
+                    android:hint="2118 Thornridge Cir. Syracuse"
+                    android:padding="12dp"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TOTAL:"
+                            android:textSize="18dp"
+                            android:textColor="@color/secondary_text" />
+
+                        <TextView
+                            android:id="@+id/price"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$96"
+                            android:textSize="25dp"
+                            android:textColor="@color/primary_text" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/breakdown"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Breakdown >"
+                        android:textColor="@color/accent" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/orderBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:text="PLACE ORDER"
+                app:cornerRadius="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

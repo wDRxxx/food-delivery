@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.fooddelivery.R
@@ -18,6 +19,7 @@ import com.example.fooddelivery.models.restaurants
 
 
 class HomeFragment : Fragment() {
+    lateinit var cartBtn: ImageButton
 
     lateinit var categoriesContainer: LinearLayout
     lateinit var restaurantsContainer: LinearLayout
@@ -29,8 +31,15 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        cartBtn = view.findViewById(R.id.cartBtn)
+        cartBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, CartFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
         categoriesContainer = view.findViewById(R.id.categoriesContainer)
         restaurantsContainer = view.findViewById(R.id.restaurantsContainer)

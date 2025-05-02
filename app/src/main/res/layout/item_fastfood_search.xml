@@ -18,7 +18,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:background="@drawable/onboarding_rounded_image_placeholder" />
+                android:background="@drawable/rounded_image_placeholder" />
 
             <LinearLayout
                 android:gravity="center_horizontal"

@@ -30,7 +30,10 @@ import com.example.fooddelivery.models.restaurants
 class SearchFragment : Fragment() {
 
     private lateinit var context: Context
+
     private lateinit var backBtn: ImageButton
+    private lateinit var cartBtn: ImageButton
+
     private lateinit var editText: EditText
     private lateinit var historyRecyclerView: RecyclerView
     private var historyList = mutableListOf<String>()
@@ -58,6 +61,14 @@ class SearchFragment : Fragment() {
         backBtn = view.findViewById(R.id.backBtn)
         backBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
+        }
+
+        cartBtn = view.findViewById(R.id.cartBtn)
+        cartBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, CartFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         editText = view.findViewById(R.id.search)

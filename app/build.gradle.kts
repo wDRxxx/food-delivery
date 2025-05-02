@@ -48,4 +48,5 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.viewpager2)
     implementation(libs.dotsindicator)
+    implementation(libs.gson)
 }

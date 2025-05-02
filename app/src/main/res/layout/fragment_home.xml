@@ -4,167 +4,168 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:paddingHorizontal="20dp"
+    <ScrollView
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:gravity="center_vertical"
-            android:layout_marginTop="50dp"
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <FrameLayout
                 android:gravity="center_vertical"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_menu"
+                        android:background="@color/white" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DELIVER TO"
+                            android:textColor="@color/accent" />
+
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Halal Lab office"
+                            android:textColor="@color/primary_text" />
+                    </LinearLayout>
+                </LinearLayout>
+
                 <ImageButton
+                    android:id="@+id/cartBtn"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="150dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_menu"
+                    android:src="@drawable/icon_cart"
                     android:background="@color/white" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary_text"
+                    android:text="Hey Halal, Good Afternoon!" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:orientation="vertical">
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/rounded_input"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="12dp">
 
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="DELIVER TO"
-                        android:textColor="@color/accent" />
+                        android:src="@drawable/icon_search" />
 
-                    <TextView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="wrap_content"
+                    <Button
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/search"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Halal Lab office"
-                        android:textColor="@color/primary_text" />
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:hint="Search dishes, restaurants"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:paddingHorizontal="8dp"
+                        android:singleLine="true" />
                 </LinearLayout>
             </LinearLayout>
 
-            <ImageButton
-                android:layout_gravity="right"
-                android:layout_marginLeft="150dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_cart"
-                android:background="@color/white" />
-        </FrameLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
-                android:text="Hey Halal, Good Afternoon!" />
-
             <LinearLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
                 android:orientation="horizontal"
-                android:background="@drawable/rounded_input"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="12dp">
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <ImageView
+                <TextView
+                    android:textSize="18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_search" />
+                    android:text="All Categories" />
 
-                <Button
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/search"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_marginLeft="190dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:hint="Search dishes, restaurants"
-                    android:textAlignment="textStart"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:paddingHorizontal="8dp"
-                    android:singleLine="true" />
+                    android:text="See All >" />
             </LinearLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <!--    Категории     -->
+            <HorizontalScrollView
+                android:layout_marginTop="20dp"
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:textSize="18dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="All Categories" />
+                <LinearLayout
+                    android:id="@+id/categoriesContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
 
-            <TextView
-                android:layout_marginLeft="190dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="See All >" />
-        </LinearLayout>
-
-        <!--    Категории     -->
-        <HorizontalScrollView
-            android:layout_marginTop="20dp"
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/categoriesContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:textSize="18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Open Restaurants" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="155dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See All >" />
+            </LinearLayout>
 
-            <TextView
-                android:textSize="18dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Open Restaurants" />
-
-            <TextView
-                android:layout_marginLeft="155dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="See All >" />
-        </LinearLayout>
-
-        <!--    Рестораны     -->
-        <ScrollView
-            android:layout_marginTop="20dp"
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            <!--    Рестораны     -->
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:id="@+id/restaurantsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
-        </ScrollView>
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

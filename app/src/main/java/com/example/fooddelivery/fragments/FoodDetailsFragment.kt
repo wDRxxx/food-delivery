@@ -1,17 +1,25 @@
 package com.example.fooddelivery.fragments
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import com.example.fooddelivery.R
+import com.example.fooddelivery.models.Cart
+import com.example.fooddelivery.models.CartItem
 import com.example.fooddelivery.models.FastFood
+import com.google.gson.Gson
 
 class FoodDetailsFragment : Fragment() {
 
+    private lateinit var context: Context
     private lateinit var backBtn: ImageButton
 
     private lateinit var title: TextView
@@ -21,16 +29,22 @@ class FoodDetailsFragment : Fragment() {
     private lateinit var deliveryTime: TextView
     private lateinit var price: TextView
 
-    private var count: Int = 0
+    private var cartItem: CartItem = CartItem(
+        count = 1,
+        food = null,
+        totalPrice = 0f
+    )
     private lateinit var countText: TextView
     private lateinit var minusBtn: TextView
     private lateinit var plusBtn: TextView
+    private lateinit var addToCartBtn: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        context = requireContext()
         val view = inflater.inflate(R.layout.fragment_food_details, container, false)
 
         backBtn = view.findViewById(R.id.backBtn)
@@ -48,15 +62,26 @@ class FoodDetailsFragment : Fragment() {
         countText = view.findViewById(R.id.count)
         minusBtn = view.findViewById(R.id.minusBtn)
         minusBtn.setOnClickListener {
-            if (count > 1) {
-                count--
-                countText.text = count.toString()
+            if (cartItem.count > 1) {
+                cartItem.count--
+                cartItem.totalPrice -= cartItem.food?.price!!
+
+                countText.text = cartItem.count.toString()
+                price.text = cartItem.totalPrice.toString() + "$"
             }
         }
         plusBtn = view.findViewById(R.id.plusBtn)
         plusBtn.setOnClickListener {
-            count++
-            countText.text = count.toString()
+            cartItem.count++
+            cartItem.totalPrice += cartItem.food?.price!!
+
+            countText.text = cartItem.count.toString()
+            price.text = cartItem.totalPrice.toString() + "$"
+        }
+
+        addToCartBtn = view.findViewById(R.id.addToCartBtn)
+        addToCartBtn.setOnClickListener {
+            addToCart()
         }
 
         loadDetails()
@@ -64,9 +89,38 @@ class FoodDetailsFragment : Fragment() {
         return view
     }
 
+    fun addToCart() {
+        val sharedPreferences = context.getSharedPreferences("cart", MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString("cart", gson.toJson(Cart(items = listOf())))
+        val cart: Cart = gson.fromJson(json, Cart::class.java)
+
+        val existingItem = cart.items.find { it.food?.id == cartItem.food?.id }
+
+        val updatedItems = if (existingItem != null) {
+            cart.items.map {
+                if (it.food?.id == cartItem.food?.id) {
+                    it.copy(
+                        count = it.count + cartItem.count,
+                        totalPrice = it.totalPrice + cartItem.totalPrice
+                    )
+                } else it
+            }
+        } else {
+            cart.items + cartItem
+        }
+
+        cart.items = updatedItems
+
+        sharedPreferences.edit {
+            putString("cart", gson.toJson(cart))
+        }
+    }
+
     fun loadDetails() {
         var food: FastFood = arguments?.getSerializable("food") as FastFood
-
+        cartItem.food = food
+        cartItem.totalPrice = food.price!!
         addDetailsToView(food)
     }
 
