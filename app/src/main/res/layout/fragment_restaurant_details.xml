@@ -42,10 +42,12 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/my_image"
+                    android:outlineProvider="background"
+                    android:id="@+id/image"
+                    android:scaleType="centerCrop"
+                    android:clipToOutline="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/rounded_image_placeholder" />
 
             </LinearLayout>

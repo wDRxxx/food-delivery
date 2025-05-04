@@ -102,6 +102,7 @@ class HomeFragment : Fragment() {
             Category(
                 id = 0,
                 title = "All",
+                image = ""
             ),
         ).plus(categories)
 
@@ -113,7 +114,7 @@ class HomeFragment : Fragment() {
 
         for (category in categories) {
             val categoryItem = CategoryItem(requireActivity())
-            categoryItem.bind(category.title)
+            categoryItem.bind(category)
 
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,

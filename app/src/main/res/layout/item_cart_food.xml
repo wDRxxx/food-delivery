@@ -13,6 +13,9 @@
         android:background="@color/black">
 
         <ImageView
+            android:id="@+id/image"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
             android:layout_width="170dp"
             android:layout_height="150dp"
             android:background="@drawable/rounded_dark_image_placeholder" />
@@ -23,13 +26,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/title"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:textSize="20dp"
-                android:layout_height="wrap_content"
-                android:text="Pizza Calzone European"
-                android:textColor="@color/white" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="144dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pizza Calzone European"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <ImageButton
+                    android:id="@+id/deleteBtn"
+                    android:visibility="invisible"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_delete"
+                    android:background="@color/black" />
+
+            </FrameLayout>
 
             <TextView
                 android:layout_marginTop="5dp"

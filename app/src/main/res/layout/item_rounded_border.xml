@@ -9,7 +9,7 @@
         android:id="@+id/base"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:background="@drawable/rounded_bordered"
+        android:background="@drawable/round_bordered"
         tools:ignore="MissingConstraints">
 
         <LinearLayout

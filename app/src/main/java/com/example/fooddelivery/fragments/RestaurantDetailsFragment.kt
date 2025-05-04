@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import coil.load
 import com.example.fooddelivery.R
 import com.example.fooddelivery.items.FoodItem
 import com.example.fooddelivery.models.Category
@@ -23,6 +25,7 @@ class RestaurantDetailsFragment : Fragment() {
 
     private lateinit var restaurant: Restaurant
     private lateinit var title: TextView
+    private lateinit var image: ImageView
     private lateinit var rating: TextView
     private lateinit var delivery: TextView
     private lateinit var deliveryTime: TextView
@@ -49,6 +52,7 @@ class RestaurantDetailsFragment : Fragment() {
         }
 
         title = view.findViewById(R.id.title)
+        image = view.findViewById(R.id.image)
         rating = view.findViewById(R.id.rating)
         delivery = view.findViewById(R.id.delivery)
         deliveryTime = view.findViewById(R.id.deliveryTime)
@@ -71,6 +75,7 @@ class RestaurantDetailsFragment : Fragment() {
 
     fun addDetailsToView(restaurant: Restaurant) {
         title.text = restaurant.title
+        image.load(restaurant.image.toString())
         delivery.text = restaurant.delivery
         deliveryTime.text = restaurant.deliveryTime
         rating.text = restaurant.rating.toString()
@@ -99,7 +104,7 @@ class RestaurantDetailsFragment : Fragment() {
                         )
 
                     categoryFood =
-                        getFastFoodByCategory(fastfoods, restaurant.id, currentCategory?.id ?: 0)
+                        getFastFoodByCategory(fastfoods, currentCategory?.id ?: 0)
 
                     categoryTitle.text = currentCategory?.title + " (" + categoryFood.size + ")"
                     addFoodToView(categoryFood)
@@ -107,7 +112,7 @@ class RestaurantDetailsFragment : Fragment() {
 
                 view.setOnClickListener {
                     currentCategoryView.findViewById<FrameLayout>(R.id.base)
-                        .setBackgroundResource(R.drawable.rounded_bordered)
+                        .setBackgroundResource(R.drawable.round_bordered)
                     currentCategoryView.findViewById<TextView>(R.id.title)
                         .setTextColor(
                             resources.getColor(R.color.primary_text)
@@ -125,7 +130,7 @@ class RestaurantDetailsFragment : Fragment() {
                         categories.find { it.title == currentCategoryView.findViewById<TextView>(R.id.title).text }
 
                     categoryFood =
-                        getFastFoodByCategory(fastfoods, restaurant.id, currentCategory?.id ?: 0)
+                        getFastFoodByCategory(fastfoods, currentCategory?.id ?: 0)
 
                     categoryTitle.text = currentCategory?.title + " (" + categoryFood.size + ")"
                     addFoodToView(categoryFood)
@@ -171,7 +176,6 @@ class RestaurantDetailsFragment : Fragment() {
 
     fun getFastFoodByCategory(
         allFastFood: List<FastFood>,
-        restaurantId: Int,
         categoryId: Int
     ): List<FastFood> {
         return allFastFood.filter {

@@ -49,4 +49,5 @@ dependencies {
     implementation(libs.androidx.viewpager2)
     implementation(libs.dotsindicator)
     implementation(libs.gson)
+    implementation(libs.coil)
 }

@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
+import coil.load
 import com.example.fooddelivery.R
 import com.example.fooddelivery.models.Cart
 import com.example.fooddelivery.models.CartItem
@@ -23,6 +25,7 @@ class FoodDetailsFragment : Fragment() {
     private lateinit var backBtn: ImageButton
 
     private lateinit var title: TextView
+    private lateinit var image: ImageView
     private lateinit var restaurant: TextView
     private lateinit var rating: TextView
     private lateinit var delivery: TextView
@@ -53,6 +56,7 @@ class FoodDetailsFragment : Fragment() {
         }
 
         title = view.findViewById(R.id.title)
+        image = view.findViewById(R.id.image)
         restaurant = view.findViewById(R.id.resturant)
         rating = view.findViewById(R.id.rating)
         delivery = view.findViewById(R.id.delivery)
@@ -126,6 +130,7 @@ class FoodDetailsFragment : Fragment() {
 
     fun addDetailsToView(food: FastFood) {
         title.text = food.title
+        image.load(food.image.toString())
         restaurant.text = food.restaurant?.title
         delivery.text = food.restaurant?.delivery
         deliveryTime.text = food.restaurant?.deliveryTime

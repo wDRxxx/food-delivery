@@ -3,8 +3,10 @@ package com.example.fooddelivery.items
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import coil.load
 import com.example.fooddelivery.R
 import com.example.fooddelivery.models.Restaurant
 
@@ -13,6 +15,7 @@ class RestaurantSearchItem @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private var title: TextView
+    private var image: ImageView
     private var rating: TextView
 
     private var clickListener: (() -> Unit)? = null
@@ -21,6 +24,7 @@ class RestaurantSearchItem @JvmOverloads constructor(
         val view = LayoutInflater.from(context).inflate(R.layout.item_restaurant_search, this, true)
 
         title = findViewById(R.id.title)
+        image = findViewById(R.id.image)
         rating = findViewById(R.id.rating)
 
         view.setOnClickListener {
@@ -30,6 +34,7 @@ class RestaurantSearchItem @JvmOverloads constructor(
 
     fun bind(restaurant: Restaurant, onClick: () -> Unit) {
         title.text = restaurant.title
+        image.load(restaurant.image.toString())
         rating.text = restaurant.rating.toString()
 
         clickListener = onClick

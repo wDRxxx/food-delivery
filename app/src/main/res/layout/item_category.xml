@@ -17,6 +17,9 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/image"
+                android:scaleType="centerCrop"
+                android:clipToOutline="true"
                 android:layout_gravity="center_vertical"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

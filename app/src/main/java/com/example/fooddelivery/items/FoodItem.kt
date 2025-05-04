@@ -3,8 +3,10 @@ package com.example.fooddelivery.items
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import coil.load
 import com.example.fooddelivery.R
 import com.example.fooddelivery.models.FastFood
 
@@ -13,6 +15,7 @@ class FoodItem @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private var title: TextView
+    private var image: ImageView
     private var restaurant: TextView
     private var price: TextView
     private var addBtn: TextView
@@ -23,6 +26,7 @@ class FoodItem @JvmOverloads constructor(
         val view = LayoutInflater.from(context).inflate(R.layout.item_food, this, true)
 
         title = findViewById(R.id.title)
+        image = findViewById(R.id.image)
         restaurant = findViewById(R.id.resturant)
         price = findViewById(R.id.price)
         addBtn = findViewById(R.id.addBtn)
@@ -36,6 +40,7 @@ class FoodItem @JvmOverloads constructor(
 
     fun bind(fastFood: FastFood, onClick: () -> Unit) {
         title.text = fastFood.title
+        image.load(fastFood.image.toString())
         restaurant.text = fastFood.restaurant?.title
         price.text = fastFood.price.toString() + "$"
 

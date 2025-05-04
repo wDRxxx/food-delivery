@@ -2,13 +2,18 @@ package com.example.fooddelivery.fragments
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import com.example.fooddelivery.R
 import com.example.fooddelivery.dpToPx
@@ -24,6 +29,11 @@ class CartFragment : Fragment() {
 
     private lateinit var price: TextView
 
+    private lateinit var editBtn: TextView
+    private var editing: Boolean = false
+
+    private lateinit var nextBtn: Button
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,9 +47,40 @@ class CartFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
+        nextBtn = view.findViewById(R.id.nextBtn)
+        nextBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PaymentFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         itemsContainer = view.findViewById(R.id.itemsContainer)
 
         price = view.findViewById(R.id.price)
+
+        editBtn = view.findViewById(R.id.edit)
+        editBtn.setOnClickListener {
+            editing = !editing
+            if (editing) {
+                editBtn.text = "DONE"
+                editBtn.setTextColor(Color.parseColor("#059C6A"))
+            } else {
+                editBtn.text = "EDIT ITEMS"
+                editBtn.setTextColor(ContextCompat.getColor(context, R.color.accent))
+            }
+
+            for (i in 0 until itemsContainer.childCount) {
+                val child = itemsContainer.getChildAt(i)
+
+                val deleteBtn = child.findViewById<ImageView>(R.id.deleteBtn)
+                if (editing) {
+                    deleteBtn?.visibility = View.VISIBLE
+                } else {
+                    deleteBtn?.visibility = View.INVISIBLE
+                }
+            }
+        }
 
         loadCart()
 
@@ -60,11 +101,25 @@ class CartFragment : Fragment() {
         itemsContainer.removeAllViews()
 
         for (item in items) {
-
             val cartItem = com.example.fooddelivery.items.CartItem(context)
-            cartItem.bind(item) {
+            cartItem.bind(cartItem = item, onPriceUpdated = {
                 updateTotalPriceText()
-            }
+            }, onDelete = { itemToDelete ->
+                itemsContainer.removeView(cartItem)
+
+                val sharedPreferences = context.getSharedPreferences("cart", MODE_PRIVATE)
+                val gson = Gson()
+                val json = sharedPreferences.getString("cart", gson.toJson(Cart(emptyList())))
+                val cart = gson.fromJson(json, Cart::class.java)
+
+                val updatedItems = cart.items.filter { it.food?.id != itemToDelete.food?.id }
+                cart.items = updatedItems
+
+                sharedPreferences.edit {
+                    putString("cart", gson.toJson(cart))
+                }
+                updateTotalPriceText()
+            })
 
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -83,7 +138,7 @@ class CartFragment : Fragment() {
     }
 
     private fun updateTotalPriceText() {
-        val sharedPreferences = requireContext().getSharedPreferences("cart", Context.MODE_PRIVATE)
+        val sharedPreferences = requireContext().getSharedPreferences("cart", MODE_PRIVATE)
         val gson = Gson()
         val json = sharedPreferences.getString("cart", gson.toJson(Cart(items = listOf())))
         val cart: Cart = gson.fromJson(json, Cart::class.java)

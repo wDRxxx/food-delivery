@@ -71,7 +71,7 @@
             android:background="@drawable/rounded_top_corners_white"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingHorizontal="40dp">
+            android:paddingHorizontal="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                     android:id="@+id/editTextAddress"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:background="@drawable/rounded_input"
+                    android:background="@drawable/rounded_light"
                     android:ems="10"
                     android:hint="2118 Thornridge Cir. Syracuse"
                     android:padding="12dp"
@@ -156,7 +156,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/orderBtn"
+                android:id="@+id/nextBtn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
