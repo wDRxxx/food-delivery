@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:background="@drawable/rounded_image_placeholder" />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/primary_text"
+                android:textSize="25dp"
+                android:text="Congratulations!" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/secondary_text"
+                android:textSize="20dp"
+                android:text="You successfully maked a payment, enjoy our service!" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_marginHorizontal="20dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/nextBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cornerRadius="10dp"
+            android:text="TRACK ORDER" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

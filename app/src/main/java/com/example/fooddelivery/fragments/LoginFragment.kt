@@ -27,7 +27,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.frament_log_in, container, false)
+        val view = inflater.inflate(R.layout.fragment_log_in, container, false)
 
         editEmail = view.findViewById(R.id.editTextEmail)
         editPassword = view.findViewById(R.id.editTextPassword)

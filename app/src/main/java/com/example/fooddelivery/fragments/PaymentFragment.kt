@@ -8,9 +8,11 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.fooddelivery.R
 import com.example.fooddelivery.dpToPx
 import com.example.fooddelivery.models.CardItem
@@ -29,8 +31,12 @@ class PaymentFragment : Fragment() {
     private lateinit var activePaymentType: PaymentType
 
     private lateinit var cardsContainer: LinearLayout
+    private var activeCardItem: com.example.fooddelivery.items.CardItem? = null
+    private var activeCard: CardItem? = null
     private lateinit var noCard: LinearLayout
+
     private lateinit var addBtn: LinearLayout
+    private lateinit var nextBtn: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +49,30 @@ class PaymentFragment : Fragment() {
         backBtn = view.findViewById(R.id.backBtn)
         backBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
+        }
+
+        nextBtn = view.findViewById(R.id.nextBtn)
+        nextBtn.setOnClickListener {
+            if (activePaymentType == paymentTypes[0]) {
+                parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, SuccessPaymentFragment())
+                    .addToBackStack(null)
+                    .commit()
+            } else {
+                if (activeCard != null) {
+                    parentFragmentManager.popBackStack(
+                        null,
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE
+                    )
+
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, SuccessPaymentFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
         }
 
         paymentTypesContainer = view.findViewById(R.id.paymentTypesContainer)
@@ -59,6 +89,7 @@ class PaymentFragment : Fragment() {
             val fragment = AddCardFragment()
             fragment.arguments = Bundle().apply {
                 putSerializable("paymentType", activePaymentType)
+                putString("source", "payment")
             }
 
             parentFragmentManager.beginTransaction()
@@ -89,6 +120,7 @@ class PaymentFragment : Fragment() {
             paymentTypeItem.setOnClickListener {
 
                 cardsContainer.removeAllViews()
+                activeCard = null
                 paymentTypeItem.toggleActive()
 
                 activePaymentTypeItem.toggleActive()
@@ -143,6 +175,19 @@ class PaymentFragment : Fragment() {
         for (card in cards) {
             val cardItem = com.example.fooddelivery.items.CardItem(context)
             cardItem.bind(card)
+            if (cards.indexOf(card) == 0) {
+                cardItem.toggleActive()
+                activeCardItem = cardItem
+                activeCard = card
+            }
+
+            cardItem.setOnClickListener {
+                cardItem.toggleActive()
+
+                activeCardItem?.toggleActive()
+                activeCardItem = cardItem
+                activeCard = card
+            }
 
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,

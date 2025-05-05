@@ -11,3 +11,14 @@ data class CartItem(
 data class Cart(
     var items: List<CartItem>
 ) : Serializable
+
+data class OrderItem(
+    var id: Int,
+    var date: String,
+    var items: List<CartItem>
+) : Serializable
+
+data class Orders(
+    var items: List<OrderItem>
+) : Serializable
+

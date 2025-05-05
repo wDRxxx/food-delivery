@@ -38,9 +38,18 @@ class AddCardFragment : Fragment() {
         context = requireContext()
         val view = inflater.inflate(R.layout.fragment_add_cart, container, false)
 
+        val source: String = arguments?.getString("source").toString()
+
         backBtn = view.findViewById(R.id.backBtn)
         backBtn.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            if (source != "payment") {
+                parentFragmentManager.popBackStack()
+            } else {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, SuccessPaymentFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
 
         editName = view.findViewById(R.id.editName)

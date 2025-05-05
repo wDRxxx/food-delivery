@@ -26,7 +26,7 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.frament_sign_up, container, false)
+        val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
         editEmail = view.findViewById(R.id.editTextEmail)
         editName = view.findViewById(R.id.editTextName)

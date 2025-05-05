@@ -3,6 +3,7 @@ package com.example.fooddelivery.items
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,13 +16,18 @@ class CardItem @JvmOverloads constructor(
 
     private lateinit var cardItem: CardItem
 
+    private var base: FrameLayout
+
     private var image: ImageView
     private var number: TextView
     private var title: TextView
 
+    var isActive: Boolean = false
+
     init {
         val view = LayoutInflater.from(context).inflate(R.layout.item_card, this, true)
 
+        base = view.findViewById(R.id.base)
         image = view.findViewById(R.id.image)
         number = view.findViewById(R.id.number)
         title = view.findViewById(R.id.title)
@@ -42,5 +48,15 @@ class CardItem @JvmOverloads constructor(
         val maskedPart = "*".repeat(input.length - 2)
         val visiblePart = input.takeLast(2)
         return maskedPart + visiblePart
+    }
+
+    fun toggleActive() {
+        isActive = !isActive
+
+        if (isActive) {
+            base.setBackgroundResource(R.drawable.rounded_white_accent_bordered)
+        } else {
+            base.setBackgroundResource(R.drawable.rounded_light)
+        }
     }
 }
