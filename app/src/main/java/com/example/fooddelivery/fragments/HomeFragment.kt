@@ -114,7 +114,17 @@ class HomeFragment : Fragment() {
 
         for (category in categories) {
             val categoryItem = CategoryItem(requireActivity())
-            categoryItem.bind(category)
+
+            val fragment = CategoryFragment()
+            fragment.arguments = Bundle().apply {
+                putSerializable("category", category)
+            }
+            categoryItem.bind(category) {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
 
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,

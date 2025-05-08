@@ -1,10 +1,12 @@
 package com.example.fooddelivery.models
 
+import java.io.Serializable
+
 data class Category(
     val id: Int,
     val image: String?,
     val title: String
-)
+) : Serializable
 
 val categories: List<Category> = listOf(
     Category(

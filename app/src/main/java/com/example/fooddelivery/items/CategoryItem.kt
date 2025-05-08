@@ -17,15 +17,22 @@ class CategoryItem @JvmOverloads constructor(
     private var title: TextView
     private var image: ImageView
 
+    private var clickListener: (() -> Unit)? = null
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.item_category, this, true)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_category, this, true)
 
         title = findViewById(R.id.title)
         image = findViewById(R.id.image)
+
+        view.setOnClickListener {
+            clickListener?.invoke()
+        }
     }
 
-    fun bind(category: Category) {
+    fun bind(category: Category, onClick: () -> Unit) {
         title.text = category.title
         image.load(category.image.toString())
+        clickListener = onClick
     }
 }
