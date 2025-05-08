@@ -27,10 +27,11 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
+                        android:id="@+id/menuBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/icon_menu"
-                        android:background="@color/white" />
+                        android:background="@color/white"
+                        android:src="@drawable/icon_menu" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

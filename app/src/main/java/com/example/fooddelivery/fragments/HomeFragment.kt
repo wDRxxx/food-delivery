@@ -20,6 +20,7 @@ import com.example.fooddelivery.models.restaurants
 
 class HomeFragment : Fragment() {
     lateinit var cartBtn: ImageButton
+    lateinit var menuBtn: ImageButton
 
     lateinit var categoriesContainer: LinearLayout
     lateinit var restaurantsContainer: LinearLayout
@@ -37,6 +38,14 @@ class HomeFragment : Fragment() {
         cartBtn.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, CartFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        menuBtn = view.findViewById(R.id.menuBtn)
+        menuBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, MenuFragment())
                 .addToBackStack(null)
                 .commit()
         }
