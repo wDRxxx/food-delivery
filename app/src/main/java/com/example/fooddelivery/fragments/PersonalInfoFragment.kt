@@ -4,41 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.fooddelivery.R
 
 
-class MenuFragment : Fragment() {
+class PersonalInfoFragment : Fragment() {
     lateinit var backBtn: ImageButton
-    lateinit var cartBtn: FrameLayout
-    lateinit var personalInfoBtn: FrameLayout
+    lateinit var editBtn: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_menu, container, false)
+        val view = inflater.inflate(R.layout.fragment_personal_info, container, false)
 
         backBtn = view.findViewById(R.id.backBtn)
         backBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        cartBtn = view.findViewById(R.id.cartBtn)
-        cartBtn.setOnClickListener {
+        editBtn = view.findViewById(R.id.editBtn)
+        editBtn.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, CartFragment())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        personalInfoBtn = view.findViewById(R.id.personalInfoBtn)
-        personalInfoBtn.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, PersonalInfoFragment())
+                .replace(R.id.fragment_container, EditProfileFragment())
                 .addToBackStack(null)
                 .commit()
         }

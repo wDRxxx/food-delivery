@@ -59,7 +59,7 @@ class CartFragment : Fragment() {
 
         price = view.findViewById(R.id.price)
 
-        editBtn = view.findViewById(R.id.edit)
+        editBtn = view.findViewById(R.id.editBtn)
         editBtn.setOnClickListener {
             editing = !editing
             if (editing) {
@@ -144,6 +144,6 @@ class CartFragment : Fragment() {
         val cart: Cart = gson.fromJson(json, Cart::class.java)
 
         val total = cart.items.sumOf { it.totalPrice.toDouble() }
-        price.text = "$" + total.toString()
+        price.text = "$" + String.format("%.2f", total)
     }
 }

@@ -40,7 +40,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/edit"
+                android:id="@+id/editBtn"
                 android:textSize="15dp"
                 android:layout_gravity="end|center_vertical"
                 android:layout_width="wrap_content"
