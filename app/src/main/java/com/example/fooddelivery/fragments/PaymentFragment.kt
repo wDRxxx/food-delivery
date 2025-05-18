@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.fooddelivery.R
@@ -38,6 +39,11 @@ class PaymentFragment : Fragment() {
     private lateinit var addBtn: LinearLayout
     private lateinit var nextBtn: Button
 
+    private lateinit var priceText: TextView
+    private lateinit var price: TextView
+
+    lateinit var source: String
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,6 +51,14 @@ class PaymentFragment : Fragment() {
     ): View? {
         context = requireContext()
         val view = inflater.inflate(R.layout.fragment_payment, container, false)
+        source = arguments?.getString("source").toString()
+
+        price = view.findViewById(R.id.price)
+        priceText = view.findViewById(R.id.priceText)
+
+        noCard = view.findViewById(R.id.noCard)
+        addBtn = view.findViewById(R.id.addBtn)
+        cardsContainer = view.findViewById(R.id.cardsContainer)
 
         backBtn = view.findViewById(R.id.backBtn)
         backBtn.setOnClickListener {
@@ -52,7 +66,17 @@ class PaymentFragment : Fragment() {
         }
 
         nextBtn = view.findViewById(R.id.nextBtn)
+        if (source !== "cart") {
+            nextBtn.text = "Save"
+            price.visibility = GONE
+            priceText.visibility = GONE
+        }
         nextBtn.setOnClickListener {
+            if (source !== "cart") {
+                parentFragmentManager.popBackStack()
+                return@setOnClickListener
+            }
+
             if (activePaymentType == paymentTypes[0]) {
                 parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
@@ -78,18 +102,14 @@ class PaymentFragment : Fragment() {
         paymentTypesContainer = view.findViewById(R.id.paymentTypesContainer)
         loadPaymentTypes()
 
-        cardsContainer = view.findViewById(R.id.cardsContainer)
-
-        noCard = view.findViewById(R.id.noCard)
         noCard.visibility = GONE
-        addBtn = view.findViewById(R.id.addBtn)
         addBtn.visibility = GONE
 
         addBtn.setOnClickListener {
             val fragment = AddCardFragment()
             fragment.arguments = Bundle().apply {
                 putSerializable("paymentType", activePaymentType)
-                putString("source", "payment")
+                putString("source", source)
             }
 
             parentFragmentManager.beginTransaction()
@@ -109,12 +129,30 @@ class PaymentFragment : Fragment() {
         paymentTypesContainer.removeAllViews()
 
         for (paymentType in paymentTypes) {
+            if (source !== "cart" && paymentType.title == "Cash") {
+                continue
+            }
+
             val paymentTypeItem = com.example.fooddelivery.items.PaymentType(context)
             paymentTypeItem.bind(paymentType)
-            if (paymentTypes.indexOf(paymentType) == 0) {
+            if (paymentTypes.indexOf(paymentType) == 0 && source === "cart") {
                 paymentTypeItem.toggleActive()
                 activePaymentTypeItem = paymentTypeItem
                 activePaymentType = paymentType
+            }
+            if (paymentTypes.indexOf(paymentType) == 1 && source !== "cart") {
+                paymentTypeItem.toggleActive()
+                activePaymentTypeItem = paymentTypeItem
+                activePaymentType = paymentType
+
+                val cards = paymentTypeCards(activePaymentType)
+                if (cards.isEmpty()) {
+                    noCard.visibility = VISIBLE
+                } else {
+                    noCard.visibility = GONE
+
+                    addCardsToView(cards)
+                }
             }
 
             paymentTypeItem.setOnClickListener {

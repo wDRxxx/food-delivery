@@ -70,7 +70,6 @@ class CategoryFragment : Fragment() {
 
         foodGrid = view.findViewById(R.id.foodGrid)
         currentCategory = arguments?.getSerializable("category") as Category
-
         categoryTitle = view.findViewById(R.id.categoryTitle)
 
         spinner = view.findViewById(R.id.spinner)

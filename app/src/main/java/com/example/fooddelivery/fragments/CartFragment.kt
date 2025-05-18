@@ -49,8 +49,13 @@ class CartFragment : Fragment() {
 
         nextBtn = view.findViewById(R.id.nextBtn)
         nextBtn.setOnClickListener {
+            val fragment = PaymentFragment()
+            fragment.arguments = Bundle().apply {
+                putSerializable("source", "cart")
+            }
+
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, PaymentFragment())
+                .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)
                 .commit()
         }

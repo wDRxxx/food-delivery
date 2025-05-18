@@ -3,7 +3,6 @@ package com.example.fooddelivery.fragments
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,19 +36,10 @@ class AddCardFragment : Fragment() {
     ): View? {
         context = requireContext()
         val view = inflater.inflate(R.layout.fragment_add_cart, container, false)
-
-        val source: String = arguments?.getString("source").toString()
-
+        
         backBtn = view.findViewById(R.id.backBtn)
         backBtn.setOnClickListener {
-            if (source != "payment") {
-                parentFragmentManager.popBackStack()
-            } else {
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, SuccessPaymentFragment())
-                    .addToBackStack(null)
-                    .commit()
-            }
+            parentFragmentManager.popBackStack()
         }
 
         editName = view.findViewById(R.id.editName)
@@ -68,7 +58,6 @@ class AddCardFragment : Fragment() {
 
     fun saveCard() {
         var paymentType: PaymentType = arguments?.getSerializable("paymentType") as PaymentType
-        Log.println(Log.INFO, "paymentType", paymentType.toString())
         val sharedPreferences = context.getSharedPreferences("cards", MODE_PRIVATE)
         val gson = Gson()
         val json = sharedPreferences.getString("cards", gson.toJson(Cards(items = listOf())))

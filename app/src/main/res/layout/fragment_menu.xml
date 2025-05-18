@@ -69,6 +69,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/name"
                         android:textColor="@color/primary_text"
                         android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
@@ -77,6 +78,7 @@
                         android:text="Vishal Khadok" />
 
                     <TextView
+                        android:id="@+id/bio"
                         android:textColor="@color/secondary_text"
                         android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
@@ -129,6 +131,7 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/addressBtn"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -271,6 +274,7 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/paymentBtn"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

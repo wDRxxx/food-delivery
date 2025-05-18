@@ -1,19 +1,28 @@
 package com.example.fooddelivery.fragments
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.fooddelivery.R
+import com.example.fooddelivery.models.User
+import com.google.gson.Gson
 
 
 class MenuFragment : Fragment() {
     lateinit var backBtn: ImageButton
     lateinit var cartBtn: FrameLayout
     lateinit var personalInfoBtn: FrameLayout
+    lateinit var paymentBtn: FrameLayout
+    lateinit var addressBtn: FrameLayout
+
+    lateinit var name: TextView
+    lateinit var bio: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +39,7 @@ class MenuFragment : Fragment() {
         cartBtn = view.findViewById(R.id.cartBtn)
         cartBtn.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, CartFragment())
+                .replace(R.id.fragment_container, AddressFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -43,6 +52,50 @@ class MenuFragment : Fragment() {
                 .commit()
         }
 
+        addressBtn = view.findViewById(R.id.addressBtn)
+        addressBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, AddressFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        paymentBtn = view.findViewById(R.id.paymentBtn)
+        paymentBtn.setOnClickListener {
+            val fragment = PaymentFragment()
+            fragment.arguments = Bundle().apply {
+                putSerializable("source", "menu")
+            }
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+
+        name = view.findViewById(R.id.name)
+        bio = view.findViewById(R.id.bio)
+        loadUser()
+
         return view
+    }
+
+    fun loadUser() {
+        val sharedPreferences = requireContext().getSharedPreferences("user", MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString(
+            "user", gson.toJson(
+                User(
+                    name = "Vishal Khadok",
+                    email = "hello@halallab.co",
+                    phone = "408-841-0926",
+                    bio = "I love fast food"
+                )
+            )
+        )
+
+        var user: User = gson.fromJson(json, User::class.java)
+        name.text = user.name
+        bio.text = user.bio
     }
 }
