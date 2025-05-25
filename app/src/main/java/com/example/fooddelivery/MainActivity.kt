@@ -2,6 +2,7 @@ package com.example.fooddelivery
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
         val onboardingCompleted = prefs.getBoolean("onboarding", false)
         val loggedIn = prefs.getBoolean("loggedIn", false)
+        Log.println(Log.INFO, "zxc", onboardingCompleted.toString())
 
         if (savedInstanceState == null) {
             if (!onboardingCompleted) {

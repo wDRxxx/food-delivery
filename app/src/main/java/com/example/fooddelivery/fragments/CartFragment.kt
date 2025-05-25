@@ -34,6 +34,8 @@ class CartFragment : Fragment() {
 
     private lateinit var nextBtn: Button
 
+    var totalPrice = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +54,7 @@ class CartFragment : Fragment() {
             val fragment = PaymentFragment()
             fragment.arguments = Bundle().apply {
                 putSerializable("source", "cart")
+                putString("price", totalPrice)
             }
 
             parentFragmentManager.beginTransaction()
@@ -150,5 +153,6 @@ class CartFragment : Fragment() {
 
         val total = cart.items.sumOf { it.totalPrice.toDouble() }
         price.text = "$" + String.format("%.2f", total)
+        totalPrice = "$" + String.format("%.2f", total)
     }
 }

@@ -175,6 +175,40 @@
                 android:background="@drawable/rounded_light">
 
                 <FrameLayout
+                    android:id="@+id/ordersBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_cart_white"
+                            android:background="#F0F5FA" />
+
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:text="Orders" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:text=">" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_marginTop="20dp"
                     android:id="@+id/cartBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -426,6 +460,7 @@
                 android:background="@drawable/rounded_light">
 
                 <FrameLayout
+                    android:id="@+id/logoutBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

@@ -1,5 +1,6 @@
 package com.example.fooddelivery.fragments
 
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import com.example.fooddelivery.R
 import com.example.fooddelivery.models.User
@@ -17,9 +19,11 @@ import com.google.gson.Gson
 class MenuFragment : Fragment() {
     lateinit var backBtn: ImageButton
     lateinit var cartBtn: FrameLayout
+    lateinit var ordersBtn: FrameLayout
     lateinit var personalInfoBtn: FrameLayout
     lateinit var paymentBtn: FrameLayout
     lateinit var addressBtn: FrameLayout
+    lateinit var logoutBtn: FrameLayout
 
     lateinit var name: TextView
     lateinit var bio: TextView
@@ -39,7 +43,15 @@ class MenuFragment : Fragment() {
         cartBtn = view.findViewById(R.id.cartBtn)
         cartBtn.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AddressFragment())
+                .replace(R.id.fragment_container, CartFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        ordersBtn = view.findViewById(R.id.ordersBtn)
+        ordersBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, OrdersFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -57,6 +69,22 @@ class MenuFragment : Fragment() {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, AddressFragment())
                 .addToBackStack(null)
+                .commit()
+        }
+
+        logoutBtn = view.findViewById(R.id.logoutBtn)
+        logoutBtn.setOnClickListener {
+            var prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+            prefs.edit() {
+                putBoolean("loggedIn", false)
+            }
+            prefs = requireContext().getSharedPreferences("app_prefs", MODE_PRIVATE)
+            prefs.edit() {
+                putBoolean("onboarding", false)
+            }
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, LoginFragment())
                 .commit()
         }
 

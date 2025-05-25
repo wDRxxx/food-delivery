@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         cartBtn = view.findViewById(R.id.cartBtn)
         cartBtn.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AddressFragment())
+                .replace(R.id.fragment_container, CartFragment())
                 .addToBackStack(null)
                 .commit()
         }

@@ -5,4 +5,5 @@
     <color name="accent">#FF7622</color>
     <color name="primary_text">#32343E</color>
     <color name="secondary_text">#646982</color>
+    <color name="gray">#A5A7B9</color>
 </resources>

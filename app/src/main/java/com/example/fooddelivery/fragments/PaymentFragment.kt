@@ -2,7 +2,9 @@ package com.example.fooddelivery.fragments
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -12,15 +14,23 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.fooddelivery.R
 import com.example.fooddelivery.dpToPx
 import com.example.fooddelivery.models.CardItem
 import com.example.fooddelivery.models.Cards
+import com.example.fooddelivery.models.Cart
+import com.example.fooddelivery.models.OrderItem
+import com.example.fooddelivery.models.Orders
 import com.example.fooddelivery.models.PaymentType
 import com.example.fooddelivery.models.paymentTypes
 import com.google.gson.Gson
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class PaymentFragment : Fragment() {
     private lateinit var context: Context
@@ -44,6 +54,7 @@ class PaymentFragment : Fragment() {
 
     lateinit var source: String
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,6 +81,8 @@ class PaymentFragment : Fragment() {
             nextBtn.text = "Save"
             price.visibility = GONE
             priceText.visibility = GONE
+        } else {
+            price.text = arguments?.getString("price").toString()
         }
         nextBtn.setOnClickListener {
             if (source !== "cart") {
@@ -80,6 +93,7 @@ class PaymentFragment : Fragment() {
             if (activePaymentType == paymentTypes[0]) {
                 parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
+                saveOrder()
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, SuccessPaymentFragment())
                     .addToBackStack(null)
@@ -91,6 +105,7 @@ class PaymentFragment : Fragment() {
                         FragmentManager.POP_BACK_STACK_INCLUSIVE
                     )
 
+                    saveOrder()
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, SuccessPaymentFragment())
                         .addToBackStack(null)
@@ -240,6 +255,38 @@ class PaymentFragment : Fragment() {
 
             cardItem.layoutParams = params
             cardsContainer.addView(cardItem)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun saveOrder() {
+        val sharedPreferences = context.getSharedPreferences("orders", MODE_PRIVATE)
+        val cartPreferences = context.getSharedPreferences("cart", MODE_PRIVATE)
+        val gson = Gson()
+
+        val cartJson = cartPreferences.getString("cart", gson.toJson(Cart(items = listOf())))
+        val cart: Cart = gson.fromJson(cartJson, Cart::class.java)
+
+        val ordersJson =
+            sharedPreferences.getString("orders", gson.toJson(Orders(items = listOf())))
+        var orders: Orders = gson.fromJson(ordersJson, Orders::class.java)
+
+        val newOrder = OrderItem(
+            id = (orders.items.maxOfOrNull { it.id } ?: 0) + 1,
+            date = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("dd MMM, HH:mm", Locale.ENGLISH)),
+            items = cart.items
+        )
+
+        val updatedOrders = Orders(items = orders.items + newOrder)
+
+        Log.println(Log.INFO, "orders-updated", updatedOrders.toString())
+
+        sharedPreferences.edit {
+            putString("orders", gson.toJson(updatedOrders))
+        }
+        cartPreferences.edit {
+            putString("cart", gson.toJson(Cart(items = listOf())))
         }
     }
 }
